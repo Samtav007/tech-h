@@ -381,6 +381,158 @@ MIT License - see LICENSE file for details.
 
 ---
 
+## 🚀 **Deployment & Production Setup**
+
+### **GitHub Repository**
+- **Repository**: [https://github.com/Samtav007/tech-h.git](https://github.com/Samtav007/tech-h.git)
+- **Status**: ✅ All code pushed and synchronized
+- **Branch**: `main`
+
+### **Build Configuration**
+- **Build Status**: ✅ Successful production build
+- **TypeScript**: ✅ All errors resolved
+- **ESLint**: ✅ Configured and passing
+- **Next.js**: ✅ Optimized production build
+
+### **Deployment Platforms**
+
+#### **Render (Recommended)**
+- **Configuration**: `render.yaml` created
+- **Build Command**: `npm run build`
+- **Start Command**: `npm start`
+- **Environment**: Node.js 18+
+- **Status**: Ready for deployment
+
+#### **Alternative Platforms**
+- **Vercel**: Configuration files created (`vercel.json`)
+- **Netlify**: Compatible with static export
+- **Railway**: Backend deployment ready
+
+### **Environment Variables**
+
+#### **Frontend (Production)**
+```bash
+NODE_ENV=production
+NEXT_PUBLIC_FIREBASE_API_KEY=AIzaSyCv01ZQAkJF5SC_y7UQWI-73u9uxisk6j8
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=homy-auth1.firebaseapp.com
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=homy-auth1
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=homy-auth1.firebasestorage.app
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=595109350511
+NEXT_PUBLIC_FIREBASE_APP_ID=1:595109350511:web:686dbc363e7da9493d119a
+NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=G-9RL8C7QWQJ
+```
+
+#### **Backend (Production)**
+```bash
+NODE_ENV=production
+PORT=5000
+CLIENT_URL=https://your-frontend-url.onrender.com
+JWT_SECRET=your-super-secret-jwt-key-for-production
+GMAIL_USER=nirmantech8@gmail.com
+GMAIL_APP_PASSWORD=your_gmail_app_password
+```
+
+---
+
+## 🔧 **Recent Fixes & Updates**
+
+### **Build Error Resolution (September 2025)**
+
+#### **TypeScript Errors Fixed:**
+1. **Missing Imports**:
+   - `Tools` → `Wrench` in `VendorBenefits.tsx`
+   - `X` icon added to `PartnershipTypes.tsx`
+   - `ShoppingCart` → `ShoppingCartIcon` in `ShoppingCart.tsx`
+
+2. **Type Safety Issues**:
+   - Added proper null checking in `FoundersStory.tsx`
+   - Added proper null checking in `TeamSection.tsx`
+   - Fixed array type annotations in `ProductFilters.tsx`
+   - Fixed `window.hj` type check in `analytics.ts`
+
+#### **Server-Side Rendering (SSR) Issues Fixed:**
+1. **Location Access During SSR**:
+   - Added browser checks in `Analytics.tsx`
+   - Fixed `window.location` access in `analytics.ts`
+
+2. **Dynamic Page Generation**:
+   - Added `export const dynamic = 'force-dynamic'` to `/profile` page
+   - Added `export const dynamic = 'force-dynamic'` to `/dashboard` page
+
+#### **Build Configuration Updates:**
+1. **Package.json Optimization**:
+   - Simplified build commands for deployment
+   - Updated scripts for production builds
+
+2. **Deployment Files Created**:
+   - `render.yaml` - Multi-service Render configuration
+   - `vercel.json` - Vercel deployment configuration
+   - `package-frontend.json` - Frontend-specific package.json
+   - `package-backend.json` - Backend-specific package.json
+   - `Procfile` - Heroku deployment configuration
+
+3. **Documentation Added**:
+   - `DEPLOYMENT_GUIDE.md` - Comprehensive deployment guide
+   - `RENDER_DEPLOYMENT.md` - Render-specific deployment instructions
+   - `PRODUCTION_ENV_TEMPLATES.md` - Environment variable templates
+
+### **Current Build Status**
+```
+✓ Creating an optimized production build    
+✓ Compiled successfully
+✓ Linting and checking validity of types    
+✓ Collecting page data    
+✓ Generating static pages (18/18) 
+✓ Collecting build traces    
+✓ Finalizing page optimization    
+
+Route (app)                              Size     First Load JS
+┌ ○ /                                    3 kB           91.7 kB
+├ ○ /_not-found                          869 B          82.8 kB
+├ ○ /about                               4.39 kB        93.1 kB
+├ ○ /auth                                5.32 kB         126 kB
+├ ○ /blog                                142 B          82.1 kB
+├ ○ /careers                             176 B          88.9 kB
+├ ○ /contact                             5.4 kB         94.1 kB
+├ λ /dashboard                           142 B          82.1 kB
+├ ○ /how-it-works                        3.17 kB        91.9 kB
+├ ○ /products                            6.51 kB        95.2 kB
+├ λ /profile                             3.63 kB         124 kB
+├ ○ /robots.txt                          0 B                0 B
+├ ○ /services                            3.55 kB        92.2 kB
+├ ○ /sitemap.xml                         0 B                0 B
+├ ○ /testimonials                        3.08 kB        91.8 kB
+└ ○ /vendors                             3.67 kB        92.4 kB
+```
+
+---
+
+## 📋 **Deployment Checklist**
+
+### **Pre-Deployment**
+- [x] All TypeScript errors resolved
+- [x] All build errors fixed
+- [x] Environment variables configured
+- [x] Firebase configuration updated
+- [x] GitHub repository synchronized
+
+### **Deployment Steps**
+- [ ] Deploy to Render (or chosen platform)
+- [ ] Set environment variables in deployment platform
+- [ ] Update Firebase authorized domains
+- [ ] Test deployed application
+- [ ] Verify Google authentication
+- [ ] Test all pages and functionality
+
+### **Post-Deployment**
+- [ ] Set up monitoring and analytics
+- [ ] Configure custom domain (optional)
+- [ ] Set up automated backups
+- [ ] Implement CI/CD pipeline
+- [ ] Set up staging environment
+
+---
+
 **Built with ❤️ by Techie Home Team**
 
-*Last Updated: January 2025*
+*Last Updated: September 29, 2025*
