@@ -533,6 +533,596 @@ Route (app)                              Size     First Load JS
 
 ---
 
+## 🏗️ **System Architecture**
+
+### **High-Level Architecture Diagram**
+```
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   Frontend      │    │   Backend       │    │   Database      │
+│   (Next.js)     │◄──►│   (Express.js)  │◄──►│   (MongoDB)     │
+│   Port: 3000    │    │   Port: 5000    │    │   Atlas Cloud   │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+         │                       │                       │
+         │                       │                       │
+         ▼                       ▼                       ▼
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   Firebase      │    │   AI Services   │    │   External APIs │
+│   Auth          │    │   (Future)      │    │   Email, Maps   │
+│   Analytics     │    │   ML Models     │    │   Payment       │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+```
+
+### **Technology Stack**
+- **Frontend**: Next.js 14, React 18, TypeScript, Tailwind CSS
+- **Backend**: Node.js, Express.js, RESTful APIs
+- **Database**: MongoDB Atlas (Cloud)
+- **Authentication**: Firebase Google Auth
+- **Deployment**: Render (Frontend + Backend)
+- **Analytics**: Google Analytics 4, Hotjar
+- **Email**: Nodemailer + Gmail SMTP
+
+---
+
+## 🗄️ **Database Schema Documentation**
+
+### **MongoDB Collections**
+
+#### **Users Collection**
+```javascript
+{
+  _id: ObjectId,
+  firebaseUid: String, // Firebase Auth UID
+  email: String,
+  name: String,
+  photoURL: String,
+  phone: String,
+  company: String,
+  isPremium: Boolean,
+  subscription: {
+    plan: String, // 'free', 'premium', 'enterprise'
+    startDate: Date,
+    endDate: Date,
+    autoRenew: Boolean
+  },
+  preferences: {
+    designStyle: [String],
+    budgetRange: String,
+    roomTypes: [String]
+  },
+  createdAt: Date,
+  updatedAt: Date
+}
+```
+
+#### **Products Collection**
+```javascript
+{
+  _id: ObjectId,
+  name: String,
+  description: String,
+  category: String, // 'furniture', 'decor', 'lighting', 'textiles'
+  subcategory: String,
+  price: Number,
+  currency: String,
+  images: [String], // Array of image URLs
+  dimensions: {
+    length: Number,
+    width: Number,
+    height: Number,
+    unit: String // 'cm', 'inches'
+  },
+  materials: [String],
+  colors: [String],
+  brand: String,
+  vendor: ObjectId, // Reference to Vendors collection
+  stock: Number,
+  isActive: Boolean,
+  tags: [String],
+  createdAt: Date,
+  updatedAt: Date
+}
+```
+
+#### **Designs Collection**
+```javascript
+{
+  _id: ObjectId,
+  userId: ObjectId, // Reference to Users collection
+  name: String,
+  description: String,
+  roomType: String, // 'living', 'bedroom', 'kitchen', 'bathroom'
+  style: String, // 'modern', 'traditional', 'minimalist'
+  products: [{
+    productId: ObjectId,
+    position: {
+      x: Number,
+      y: Number,
+      z: Number
+    },
+    rotation: Number,
+    scale: Number
+  }],
+  roomLayout: {
+    width: Number,
+    height: Number,
+    floorPlan: String // Base64 encoded image
+  },
+  isPublic: Boolean,
+  likes: Number,
+  views: Number,
+  createdAt: Date,
+  updatedAt: Date
+}
+```
+
+#### **Vendors Collection**
+```javascript
+{
+  _id: ObjectId,
+  name: String,
+  email: String,
+  phone: String,
+  company: String,
+  address: {
+    street: String,
+    city: String,
+    state: String,
+    zipCode: String,
+    country: String
+  },
+  businessType: String, // 'manufacturer', 'retailer', 'designer'
+  specialties: [String],
+  portfolio: [String], // Array of portfolio image URLs
+  rating: Number,
+  reviewCount: Number,
+  isVerified: Boolean,
+  commissionRate: Number, // Percentage
+  paymentInfo: {
+    bankAccount: String,
+    taxId: String
+  },
+  createdAt: Date,
+  updatedAt: Date
+}
+```
+
+#### **Orders Collection**
+```javascript
+{
+  _id: ObjectId,
+  userId: ObjectId,
+  orderNumber: String,
+  items: [{
+    productId: ObjectId,
+    quantity: Number,
+    price: Number,
+    vendorId: ObjectId
+  }],
+  totalAmount: Number,
+  currency: String,
+  status: String, // 'pending', 'confirmed', 'shipped', 'delivered', 'cancelled'
+  shippingAddress: {
+    name: String,
+    street: String,
+    city: String,
+    state: String,
+    zipCode: String,
+    country: String
+  },
+  paymentInfo: {
+    method: String, // 'card', 'paypal', 'bank_transfer'
+    transactionId: String,
+    status: String
+  },
+  trackingInfo: {
+    carrier: String,
+    trackingNumber: String,
+    estimatedDelivery: Date
+  },
+  createdAt: Date,
+  updatedAt: Date
+}
+```
+
+---
+
+## 🤖 **AI Integration Roadmap**
+
+### **Phase 1: MVP (Current)**
+- ✅ **Basic Design Platform**: Manual product placement
+- ✅ **User Authentication**: Firebase Google Auth
+- ✅ **Product Catalog**: Static product database
+- ✅ **Contact Forms**: Email integration
+
+### **Phase 2: AI-Powered Design (Q2 2025)**
+- 🔄 **Smart Product Recommendations**: ML-based suggestions
+- 🔄 **Style Analysis**: AI-powered style detection from user preferences
+- 🔄 **Room Layout Optimization**: AI-generated optimal furniture placement
+- 🔄 **Color Palette Generation**: AI-suggested color schemes
+
+### **Phase 3: Advanced AI Features (Q3 2025)**
+- 📋 **Image Recognition**: Upload room photos for AI analysis
+- 📋 **3D Room Generation**: AI-created 3D models from 2D images
+- 📋 **Virtual Staging**: AI-powered furniture placement in real rooms
+- 📋 **Design Style Transfer**: Apply design styles to existing rooms
+
+### **Phase 4: AR/VR Integration (Q4 2025)**
+- 📋 **AR Room Preview**: Mobile AR for real-time room visualization
+- 📋 **VR Showroom**: Immersive VR experience for design exploration
+- 📋 **Hand Tracking**: Gesture-based design interaction
+- 📋 **Spatial Audio**: 3D audio for immersive experience
+
+### **Phase 5: Advanced AI Services (2026)**
+- 📋 **Predictive Analytics**: Forecast design trends and user preferences
+- 📋 **Automated Design Generation**: AI-created complete room designs
+- 📋 **Smart Home Integration**: IoT device recommendations and control
+- 📋 **Construction Planning**: AI-assisted renovation planning
+
+---
+
+## 🔒 **Security & Compliance**
+
+### **Implemented Security Features**
+- ✅ **JWT Authentication**: Secure token-based authentication
+- ✅ **HTTPS Encryption**: SSL/TLS encryption for all communications
+- ✅ **Helmet.js**: Security headers and XSS protection
+- ✅ **Rate Limiting**: API request throttling and DDoS protection
+- ✅ **CORS Configuration**: Cross-origin resource sharing controls
+- ✅ **Input Validation**: Server-side validation for all inputs
+- ✅ **Environment Variables**: Sensitive data protection
+
+### **Data Privacy & GDPR Compliance**
+- ✅ **Data Minimization**: Collect only necessary user data
+- ✅ **User Consent**: Clear privacy policy and consent mechanisms
+- ✅ **Data Portability**: User data export functionality
+- ✅ **Right to Deletion**: User account and data deletion
+- ✅ **Data Encryption**: Encryption at rest and in transit
+- ✅ **Access Controls**: Role-based access to sensitive data
+
+### **Future Security Enhancements**
+- 📋 **PCI-DSS Compliance**: Payment card industry standards
+- 📋 **SOC 2 Type II**: Security and availability controls
+- 📋 **Penetration Testing**: Regular security assessments
+- 📋 **Multi-Factor Authentication**: Enhanced login security
+- 📋 **Audit Logging**: Comprehensive activity tracking
+
+---
+
+## 🧪 **Testing & QA Strategy**
+
+### **Unit Testing**
+- **Frontend**: Jest + React Testing Library
+- **Backend**: Jest + Supertest for API testing
+- **Coverage Target**: 80%+ code coverage
+- **Test Files**: `*.test.ts`, `*.test.tsx`
+
+### **Integration Testing**
+- **API Testing**: Postman collections + automated tests
+- **Database Testing**: MongoDB integration tests
+- **Authentication Testing**: Firebase Auth flow testing
+- **Email Testing**: Nodemailer integration tests
+
+### **End-to-End Testing**
+- **Framework**: Cypress or Playwright
+- **User Journeys**: Complete user workflows
+- **Cross-Browser**: Chrome, Firefox, Safari, Edge
+- **Mobile Testing**: Responsive design validation
+
+### **CI/CD Integration**
+- **GitHub Actions**: Automated test execution
+- **Pre-commit Hooks**: Lint and test before commits
+- **Pull Request Checks**: Automated testing on PRs
+- **Deployment Gates**: Tests must pass before deployment
+
+---
+
+## ⚡ **Performance & Scalability Plan**
+
+### **Caching Strategy**
+- **CDN**: Cloudflare for static assets
+- **Redis**: Session storage and API response caching
+- **Browser Caching**: Optimized cache headers
+- **Image Optimization**: Next.js Image component with WebP
+
+### **Database Scaling**
+- **MongoDB Atlas**: Managed cloud database
+- **Sharding**: Horizontal scaling for large datasets
+- **Indexing**: Optimized database queries
+- **Connection Pooling**: Efficient database connections
+
+### **Load Balancing & Scaling**
+- **Horizontal Scaling**: Multiple server instances
+- **Load Balancer**: Traffic distribution
+- **Auto-scaling**: Dynamic resource allocation
+- **Microservices**: Service decomposition for scalability
+
+### **Performance Benchmarks**
+- **Lighthouse Score**: 90+ (Performance, SEO, Accessibility)
+- **Core Web Vitals**: LCP < 2.5s, FID < 100ms, CLS < 0.1
+- **GTmetrix**: A-grade performance rating
+- **Page Load Time**: < 3 seconds on 3G
+
+---
+
+## 📊 **Analytics & Monitoring**
+
+### **User Analytics**
+- **Google Analytics 4**: User behavior tracking
+- **Hotjar**: Heatmaps and user session recordings
+- **Custom Events**: Design interactions and conversions
+- **Funnel Analysis**: User journey optimization
+
+### **Error Monitoring**
+- **Sentry**: Real-time error tracking and alerting
+- **LogRocket**: Session replay for debugging
+- **Console Logging**: Structured application logs
+- **Performance Monitoring**: API response times and errors
+
+### **Key Performance Indicators (KPIs)**
+- **Daily Active Users (DAU)**: User engagement metric
+- **Conversion Rate**: Free to premium conversion
+- **Average Order Value (AOV)**: Revenue per transaction
+- **Customer Acquisition Cost (CAC)**: Marketing efficiency
+- **Lifetime Value (LTV)**: Long-term user value
+- **Churn Rate**: User retention metric
+
+---
+
+## 🔄 **CI/CD Pipeline**
+
+### **GitHub Actions Workflow**
+```yaml
+# .github/workflows/deploy.yml
+name: Deploy to Production
+on:
+  push:
+    branches: [main]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run Tests
+        run: npm test
+      - name: Run Linting
+        run: npm run lint
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Render
+        run: echo "Deploying to production"
+```
+
+### **Branching Strategy**
+- **main**: Production-ready code
+- **develop**: Integration branch for features
+- **feature/***: Feature development branches
+- **hotfix/***: Critical bug fixes
+
+### **Deployment Process**
+1. **Feature Development**: Create feature branch
+2. **Pull Request**: Code review and testing
+3. **Merge to Main**: Automated deployment trigger
+4. **Production Deploy**: Render auto-deployment
+5. **Health Checks**: Automated post-deployment testing
+
+---
+
+## 📚 **API Documentation**
+
+### **Swagger/OpenAPI Integration**
+- **Auto-generated Docs**: Available at `/api/docs`
+- **Interactive Testing**: Try API endpoints directly
+- **Request/Response Examples**: Complete API documentation
+- **Authentication**: JWT token integration
+
+### **API Endpoints**
+
+#### **Authentication**
+```
+POST /api/auth/login
+POST /api/auth/logout
+GET  /api/auth/profile
+```
+
+#### **Products**
+```
+GET    /api/products
+GET    /api/products/:id
+POST   /api/products (Admin)
+PUT    /api/products/:id (Admin)
+DELETE /api/products/:id (Admin)
+```
+
+#### **Designs**
+```
+GET    /api/designs
+GET    /api/designs/:id
+POST   /api/designs
+PUT    /api/designs/:id
+DELETE /api/designs/:id
+```
+
+#### **Orders**
+```
+GET    /api/orders
+GET    /api/orders/:id
+POST   /api/orders
+PUT    /api/orders/:id
+```
+
+---
+
+## 💰 **Business Model & Monetization**
+
+### **Freemium Model**
+- **Free Tier**: Basic design tools, limited product catalog
+- **Premium Tier**: $9.99/month - Advanced features, unlimited designs
+- **Enterprise Tier**: $49.99/month - Team collaboration, white-label
+
+### **Revenue Streams**
+1. **Subscription Revenue**: Monthly/annual premium subscriptions
+2. **Vendor Commissions**: 5-15% commission on product sales
+3. **Design Services**: Premium design consultation services
+4. **Advertising**: Sponsored product placements
+5. **API Licensing**: Third-party integrations
+
+### **Just-in-Time Inventory Model**
+- **No Warehouse**: Direct vendor-to-customer shipping
+- **Reduced Overhead**: Lower operational costs
+- **Scalable**: Easy to add new vendors and products
+- **Global Reach**: Worldwide product availability
+
+---
+
+## 🗓️ **Roadmap & Release Timeline**
+
+### **Phase 1: MVP (Q4 2024 - Q1 2025)**
+- ✅ **Core Platform**: Basic design tools and product catalog
+- ✅ **User Authentication**: Firebase Google Auth
+- ✅ **Contact System**: Email integration and forms
+- ✅ **Responsive Design**: Mobile and desktop optimization
+
+### **Phase 2: AI Integration (Q2 2025)**
+- 🔄 **Smart Recommendations**: ML-powered product suggestions
+- 🔄 **Style Analysis**: AI-driven design style detection
+- 🔄 **Layout Optimization**: Automated furniture placement
+- 🔄 **Color Matching**: AI color palette generation
+
+### **Phase 3: AR/VR Features (Q3 2025)**
+- 📋 **AR Room Preview**: Mobile augmented reality
+- 📋 **VR Showroom**: Immersive virtual reality experience
+- 📋 **3D Visualization**: Advanced 3D room rendering
+- 📋 **Hand Tracking**: Gesture-based interactions
+
+### **Phase 4: Construction Integration (Q4 2025)**
+- 📋 **Renovation Planning**: Construction project management
+- 📋 **Contractor Network**: Verified contractor marketplace
+- 📋 **Material Sourcing**: Construction material recommendations
+- 📋 **Project Tracking**: Real-time construction progress
+
+### **Phase 5: Smart Homes & Global Expansion (2026)**
+- 📋 **IoT Integration**: Smart home device compatibility
+- 📋 **Container Homes**: Modular home design platform
+- 📋 **Society Planning**: Large-scale community design
+- 📋 **Global Markets**: International expansion
+
+---
+
+## 👥 **Team & Roles**
+
+### **Leadership Team**
+- **Samarth Sehgal** - Founder & CEO
+  - *Responsibilities*: Product strategy, business development, investor relations
+  - *Background*: Technology leadership, startup experience
+
+- **Chirag Raguavanshi** - Founder & CTO
+  - *Responsibilities*: Technical architecture, development team leadership
+  - *Background*: Full-stack development, AI/ML expertise
+
+### **Core Team**
+- **Yashika Nailwal** - Head of Interiors & Content
+  - *Responsibilities*: Design curation, content strategy, vendor relations
+  - *Background*: Interior design, content creation
+
+- **Jatin Takkar** - Head of Operations
+  - *Responsibilities*: Operations management, vendor onboarding, logistics
+  - *Background*: Operations, supply chain management
+
+### **Future Hiring Plan**
+- **Senior Frontend Developer**: React/Next.js expertise
+- **AI/ML Engineer**: Machine learning and computer vision
+- **DevOps Engineer**: Infrastructure and deployment
+- **UX/UI Designer**: User experience and interface design
+- **Marketing Manager**: Growth and user acquisition
+
+---
+
+## 💼 **Investor/Partner Readiness**
+
+### **Key Metrics**
+- **Total Addressable Market (TAM)**: $150B+ global home improvement market
+- **Customer Acquisition Cost (CAC)**: $25-50 per user
+- **Lifetime Value (LTV)**: $200-500 per premium user
+- **LTV/CAC Ratio**: 4:1 to 10:1 target
+- **Monthly Recurring Revenue (MRR)**: Growth trajectory tracking
+
+### **Competitive Advantages (Moat)**
+1. **AI-Powered Design**: Advanced machine learning for personalized recommendations
+2. **Vendor Network**: Exclusive partnerships with furniture and decor suppliers
+3. **Technology Stack**: Modern, scalable architecture
+4. **User Experience**: Intuitive design tools and seamless shopping experience
+5. **Data Advantage**: User behavior insights for continuous improvement
+
+### **Market Opportunity**
+- **Home Improvement Market**: $400B+ annually in the US
+- **Online Furniture Market**: Growing 15%+ year-over-year
+- **AR/VR Market**: $50B+ by 2025
+- **Target Demographics**: Millennials and Gen Z (tech-savvy, design-conscious)
+
+---
+
+## 🤝 **Contributing Guide**
+
+### **Development Workflow**
+1. **Fork Repository**: Create personal fork
+2. **Create Branch**: `git checkout -b feature/amazing-feature`
+3. **Make Changes**: Implement feature or fix
+4. **Test Changes**: Run tests and linting
+5. **Commit Changes**: `git commit -m 'Add amazing feature'`
+6. **Push Branch**: `git push origin feature/amazing-feature`
+7. **Create Pull Request**: Submit for review
+
+### **Code Standards**
+- **ESLint**: Enforced code style and best practices
+- **Prettier**: Automatic code formatting
+- **TypeScript**: Strict type checking
+- **Conventional Commits**: Standardized commit messages
+
+### **Pull Request Process**
+1. **Code Review**: At least 2 reviewers required
+2. **Automated Tests**: All tests must pass
+3. **Documentation**: Update relevant documentation
+4. **Squash Commits**: Clean commit history
+5. **Merge to Main**: Deploy to production
+
+---
+
+## 🚀 **Future Enhancements**
+
+### **AI-Driven Design Marketplace**
+- **Smart Product Matching**: AI-powered product recommendations
+- **Style Transfer**: Apply design styles to existing rooms
+- **Predictive Analytics**: Forecast design trends and user preferences
+- **Automated Design Generation**: AI-created complete room designs
+
+### **Virtual Staging for Real Estate**
+- **Real Estate Integration**: Partner with real estate platforms
+- **Virtual Staging**: AI-powered furniture placement in empty rooms
+- **3D Tours**: Immersive property walkthroughs
+- **Investment Analysis**: ROI calculations for staging
+
+### **Smart Home Device Integrations**
+- **IoT Compatibility**: Smart home device recommendations
+- **Voice Control**: Alexa/Google Home integration
+- **Automated Scenes**: Lighting and climate control
+- **Energy Efficiency**: Smart home optimization
+
+### **AR/VR Headset Support**
+- **Meta Quest**: VR design experience
+- **Apple Vision Pro**: Spatial computing integration
+- **HoloLens**: Mixed reality design tools
+- **Cross-Platform**: Universal AR/VR compatibility
+
+### **Advanced Features**
+- **Blockchain Integration**: NFT-based design ownership
+- **Social Features**: Design sharing and collaboration
+- **Gamification**: Design challenges and rewards
+- **Sustainability**: Eco-friendly product recommendations
+
+---
+
 **Built with ❤️ by Techie Home Team**
 
 *Last Updated: September 29, 2025*
