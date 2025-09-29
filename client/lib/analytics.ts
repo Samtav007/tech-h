@@ -104,7 +104,7 @@ export const trackHOMYEvents = {
 
 // Hotjar integration
 export const initHotjar = () => {
-  if (typeof window !== 'undefined' && window.hj) {
+  if (typeof window !== 'undefined' && typeof window.hj === 'function') {
     // Hotjar is already initialized via script tag
     console.log('Hotjar initialized')
   }
@@ -163,5 +163,7 @@ export const initAnalytics = () => {
   trackPerformance()
   
   // Track initial page view
-  trackPageView(window.location.pathname)
+  if (typeof window !== 'undefined') {
+    trackPageView(window.location.pathname)
+  }
 }

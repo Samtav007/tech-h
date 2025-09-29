@@ -32,7 +32,7 @@ export default function Analytics() {
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', '${process.env.NEXT_PUBLIC_GA_ID || 'G-XXXXXXXXXX'}', {
-              page_path: window.location.pathname,
+              page_path: typeof window !== 'undefined' ? window.location.pathname : '/',
             });
           `,
         }}
