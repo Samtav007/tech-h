@@ -1,4 +1,4 @@
-import { Users, Package, Crown, Star, CheckCircle, ArrowRight } from 'lucide-react'
+import { Users, Package, Crown, Star, CheckCircle, ArrowRight, X } from 'lucide-react'
 
 export default function PartnershipTypes() {
   const partnershipTypes = [

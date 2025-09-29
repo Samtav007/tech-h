@@ -82,7 +82,10 @@ export default function TeamSection() {
                   onError={(e) => {
                     // Fallback to placeholder if image fails to load
                     e.currentTarget.style.display = 'none'
-                    e.currentTarget.nextElementSibling.style.display = 'flex'
+                    const nextElement = e.currentTarget.nextElementSibling as HTMLElement
+                    if (nextElement) {
+                      nextElement.style.display = 'flex'
+                    }
                   }}
                 />
                 <div className="w-full h-full bg-gray-200 flex items-center justify-center" style={{display: 'none'}}>

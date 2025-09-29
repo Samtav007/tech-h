@@ -4,8 +4,8 @@ services:
     name: homy-frontend
     env: node
     plan: free
-    buildCommand: cd client && npm install && npm run build
-    startCommand: cd client && npm start
+    buildCommand: npm run build
+    startCommand: npm start
     envVars:
       - key: NODE_ENV
         value: production
@@ -23,26 +23,3 @@ services:
         value: 1:595109350511:web:686dbc363e7da9493d119a
       - key: NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
         value: G-9RL8C7QWQJ
-      - key: NEXT_PUBLIC_API_URL
-        value: https://homy-backend.onrender.com
-
-  # Backend Service (Express.js)
-  - type: web
-    name: homy-backend
-    env: node
-    plan: free
-    buildCommand: cd server && npm install
-    startCommand: cd server && npm start
-    envVars:
-      - key: NODE_ENV
-        value: production
-      - key: PORT
-        value: 5000
-      - key: CLIENT_URL
-        value: https://homy-frontend.onrender.com
-      - key: JWT_SECRET
-        value: your-super-secret-jwt-key-for-production
-      - key: GMAIL_USER
-        value: nirmantech8@gmail.com
-      - key: GMAIL_APP_PASSWORD
-        value: your_gmail_app_password

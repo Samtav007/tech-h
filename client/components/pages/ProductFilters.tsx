@@ -7,10 +7,10 @@ export default function ProductFilters() {
   const [isOpen, setIsOpen] = useState(false)
   const [selectedFilters, setSelectedFilters] = useState({
     price: '',
-    style: [],
-    material: [],
-    color: [],
-    brand: [],
+    style: [] as string[],
+    material: [] as string[],
+    color: [] as string[],
+    brand: [] as string[],
     rating: '',
   })
 

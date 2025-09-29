@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { ShoppingCart, Plus, Minus, Trash2, CreditCard, Truck, Shield, ArrowRight } from 'lucide-react'
+import { ShoppingCart as ShoppingCartIcon, Plus, Minus, Trash2, CreditCard, Truck, Shield, ArrowRight } from 'lucide-react'
 
 export default function ShoppingCart() {
   const [cartItems, setCartItems] = useState([
@@ -84,7 +84,7 @@ export default function ShoppingCart() {
                     <div className="flex items-center space-x-4">
                       {/* Product Image */}
                       <div className="w-20 h-20 bg-gray-200 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <ShoppingCart className="h-8 w-8 text-gray-400" />
+                        <ShoppingCartIcon className="h-8 w-8 text-gray-400" />
                       </div>
                       
                       {/* Product Info */}

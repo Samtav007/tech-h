@@ -1,4 +1,4 @@
-import { Users, DollarSign, Tools, Shield, Globe, Star, Clock, Award } from 'lucide-react'
+import { Users, DollarSign, Wrench, Shield, Globe, Star, Clock, Award } from 'lucide-react'
 
 export default function VendorBenefits() {
   const designerBenefits = [
@@ -14,7 +14,7 @@ export default function VendorBenefits() {
       ],
     },
     {
-      icon: Tools,
+      icon: Wrench,
       title: 'AI Design Tools',
       description: 'Use our advanced AI tools to create stunning designs faster and more efficiently',
       details: [
