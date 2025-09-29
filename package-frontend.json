@@ -1,0 +1,16 @@
+{
+  "name": "homy-frontend",
+  "version": "1.0.0",
+  "description": "hömy Frontend - AI-Powered Interior Design Platform",
+  "private": true,
+  "scripts": {
+    "dev": "cd client && npm run dev",
+    "build": "cd client && npm run build",
+    "start": "cd client && npm run start",
+    "install": "cd client && npm install"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  }
+}

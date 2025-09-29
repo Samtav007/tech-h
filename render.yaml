@@ -1,0 +1,48 @@
+services:
+  # Frontend Service (Next.js)
+  - type: web
+    name: homy-frontend
+    env: node
+    plan: free
+    buildCommand: cd client && npm install && npm run build
+    startCommand: cd client && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NEXT_PUBLIC_FIREBASE_API_KEY
+        value: AIzaSyCv01ZQAkJF5SC_y7UQWI-73u9uxisk6j8
+      - key: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+        value: homy-auth1.firebaseapp.com
+      - key: NEXT_PUBLIC_FIREBASE_PROJECT_ID
+        value: homy-auth1
+      - key: NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
+        value: homy-auth1.firebasestorage.app
+      - key: NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
+        value: 595109350511
+      - key: NEXT_PUBLIC_FIREBASE_APP_ID
+        value: 1:595109350511:web:686dbc363e7da9493d119a
+      - key: NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
+        value: G-9RL8C7QWQJ
+      - key: NEXT_PUBLIC_API_URL
+        value: https://homy-backend.onrender.com
+
+  # Backend Service (Express.js)
+  - type: web
+    name: homy-backend
+    env: node
+    plan: free
+    buildCommand: cd server && npm install
+    startCommand: cd server && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: CLIENT_URL
+        value: https://homy-frontend.onrender.com
+      - key: JWT_SECRET
+        value: your-super-secret-jwt-key-for-production
+      - key: GMAIL_USER
+        value: nirmantech8@gmail.com
+      - key: GMAIL_APP_PASSWORD
+        value: your_gmail_app_password
