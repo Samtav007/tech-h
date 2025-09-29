@@ -1,0 +1,43 @@
+{
+  "name": "homy-fullstack",
+  "version": "1.0.0",
+  "description": "hömy - AI-Powered Interior Design Platform (Full Stack)",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
+    "dev:client": "cd client && npm run dev",
+    "dev:server": "cd server && npm run dev",
+    "build": "npm run build:client && npm run build:server",
+    "build:client": "cd client && npm run build",
+    "build:server": "cd server && npm run build",
+    "start": "concurrently \"npm run start:client\" \"npm run start:server\"",
+    "start:client": "cd client && npm run start",
+    "start:server": "cd server && npm run start",
+    "install:all": "npm install && cd client && npm install && cd ../server && npm install",
+    "clean": "rm -rf client/node_modules server/node_modules node_modules",
+    "lint": "npm run lint:client && npm run lint:server",
+    "lint:client": "cd client && npm run lint",
+    "lint:server": "cd server && npm run lint"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "keywords": [
+    "interior-design",
+    "ai",
+    "fullstack",
+    "nextjs",
+    "express",
+    "typescript"
+  ],
+  "author": "Techie Home",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/techie-home/homy"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  }
+}
